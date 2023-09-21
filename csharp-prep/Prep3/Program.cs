@@ -6,20 +6,20 @@ class Program
     {
     
          Console.Write("What is the magic number? ");
-        int magicNumber = int.Parse(Console.ReadLine());
+        int magicNum = int.Parse(Console.ReadLine());
         int guess = -1;
 
-        // We could also use a do-while loop here...
-        while (guess != magicNumber)
+        
+        while (guess != magicNum)
         {
             Console.Write("What is your guess? ");
             guess = int.Parse(Console.ReadLine());
 
-            if (magicNumber > guess)
+            if (magicNum > guess)
             {
                 Console.WriteLine("Higher");
             }
-            else if (magicNumber < guess)
+            else if (magicNum < guess)
             {
                 Console.WriteLine("Lower");
             }
