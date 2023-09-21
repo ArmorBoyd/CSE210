@@ -17,11 +17,11 @@ class Program
 
             if (magicNum > guess)
             {
-                Console.WriteLine("Higher");
+                Console.WriteLine("Higher! You gotta do better than that!");
             }
             else if (magicNum < guess)
             {
-                Console.WriteLine("Lower");
+                Console.WriteLine("Lower! Come on! TRY HARDER!!");
             }
             else
             {
