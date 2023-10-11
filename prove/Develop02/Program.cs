@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace DailyJournal
 {
@@ -10,11 +11,11 @@ namespace DailyJournal
 
             List<string> prompts = new List<string>
             {
-                "What was the best moment of I day and why? ",
-                "What was the most meaningful spiritual experience I had today? ",
-                "How I you make your day productive?",
-                "What challenges did I face today?",
-                "Did I receive inspiration from the spitit today? What was it"
+                "Who was the most interesting person I interacted with today?",
+                "What was the best part of my day?",
+                "How did I see the hand of the Lord in my life today?",
+                "What was the strongest emotion I felt today?",
+                "If I had one thing I could do over today, what would it be?"
             };
 
             bool quit = false;
@@ -38,6 +39,7 @@ namespace DailyJournal
                         journal.AddEntry(prompt);
                         break;
                     case "2":
+                        Console.Clear(); 
                         journal.DisplayEntries();
                         break;
                     case "3":

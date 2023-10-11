@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace DailyJournal
 {
     class Journal
     {
-        public List<Entry> entries;
+        private List<Entry> entries;
 
         public Journal()
         {
@@ -15,59 +17,90 @@ namespace DailyJournal
         {
             Console.Write(prompt + " ");
             string response = Console.ReadLine();
-            string date = DateTime.Now.ToString("MM/dd/yyyy");
+            DateTime date = DateTime.Now;
             entries.Add(new Entry(prompt, response, date));
         }
 
         public void DisplayEntries()
         {
+            Console.Clear(); // Clear the console screen
             foreach (Entry entry in entries)
             {
                 Console.WriteLine(entry.ToString());
             }
+            Console.WriteLine("Press Enter to continue...");
+            Console.ReadLine(); 
         }
+
         public void SaveToFile()
         {
-            Console.Write("Enter Filename: ");
-            string filename = Console.ReadLine();
-
-            using (StreamWriter writer = new StreamWriter(filename))
+            try
             {
-                writer.WriteLine("Date,Prompt,Response");
+                Console.Write("Enter Filename: ");
+                string filename = Console.ReadLine();
+                filename = filename + ".txt";
 
-                foreach (Entry entry in entries)
+                using (StreamWriter writer = new StreamWriter(filename))
                 {
-                    writer.WriteLine($"{entry.GetDate()},{entry.GetPrompt().Replace(",", ",,")},{entry.GetResponse().Replace(",", ",,")}");
-                }
-            }
+                    writer.WriteLine("Date,Prompt,Response");
 
-            Console.WriteLine("Saved");
+                    foreach (Entry entry in entries)
+                    {
+                        writer.WriteLine($"{entry.Date:MM/dd/yyyy},{entry.Prompt.Replace(",", ",,")},{entry.Response.Replace(",", ",,")}");
+                    }
+                }
+
+                Console.WriteLine("Saved");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
         }
 
-        public void LoadFromFile()
+       public void LoadFromFile()
+{
+    try
+    {
+        Console.Write("Enter filename: ");
+        string filename = Console.ReadLine();
+        filename = filename + ".txt";
+
+        if (!File.Exists(filename))
         {
-            Console.Write("Enter filename: ");
-            string filename = Console.ReadLine();
-            entries.Clear();
-
-            using (StreamReader reader = new StreamReader(filename))
-            {
-                string headerLine = reader.ReadLine(); // Read and discard the header line
-
-                while (!reader.EndOfStream)
-                {
-                    string entryLine = reader.ReadLine();
-                    string[] fields = entryLine.Split(',');
-
-                    string date = fields[0];
-                    string prompt = fields[1].Replace(",,", ",");
-                    string response = fields[2].Replace(",,", ",");
-
-                    entries.Add(new Entry(prompt, response, date));
-                }
-            }
-
-            Console.WriteLine("Loaded");
+            Console.WriteLine("Error: File does not exist.");
+            return;
         }
+
+        List<Entry> loadedEntries = new List<Entry>();
+
+        using (StreamReader reader = new StreamReader(filename))
+        {
+            string headerLine = reader.ReadLine(); // Read and discard the header line
+
+            while (!reader.EndOfStream)
+            {
+                string entryLine = reader.ReadLine();
+                string[] fields = entryLine.Split(',');
+
+                DateTime date = DateTime.ParseExact(fields[0], "MM/dd/yyyy", null);
+                string prompt = fields[1].Replace(",,", ",");
+                string response = fields[2].Replace(",,", ",");
+
+                loadedEntries.Add(new Entry(prompt, response, date));
+            }
+        }
+
+        // Replace existing entries with loaded entries
+        entries.Clear();
+        entries.AddRange(loadedEntries);
+
+        Console.WriteLine("Loaded");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Error: " + ex.Message);
+    }
+}
     }
 }

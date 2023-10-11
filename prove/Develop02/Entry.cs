@@ -4,35 +4,20 @@ namespace DailyJournal
 {
     class Entry
     {
-        public string _prompt;
-        public string _response;
-        public string _date;
+        public string Prompt { get; set; }
+        public string Response { get; set; }
+        public DateTime Date { get; set; }
 
-        public Entry(string prompt, string response, string date)
+        public Entry(string prompt, string response, DateTime date)
         {
-            _prompt = prompt;
-            _response = response;
-            _date = date;
-        }
-
-        public string GetPrompt()
-        {
-            return _prompt;
-        }
-
-        public string GetResponse()
-        {
-            return _response;
-        }
-
-        public string GetDate()
-        {
-            return _date;
+            Prompt = prompt;
+            Response = response;
+            Date = date;
         }
 
         public override string ToString()
         {
-            return $"Date: {_date} - Prompt: {_prompt} \n{_response}\n";
+            return $"Date: {Date:MM/dd/yyyy} - Prompt: {Prompt}\n{Response}\n";
         }
     }
 }
