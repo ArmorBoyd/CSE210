@@ -13,5 +13,13 @@ public class SimpleGoal : Goal
         Console.WriteLine($"{status} {_name} ({_description}) - Simple Goal");
     }
 
-    public override string SaveGoal() => $"{base.SaveGoal()}"; // Save the simple goal details
+    public override string SaveGoal() => $"{base.SaveGoal()}"; 
+    public override int CalculateAGP()
+    {
+        if (IsComplete())
+        {
+            return 2; // 2 EXP for completing a SimpleGoal
+        }
+        return 0; // If goal not complete, return 0 EXP
+}
 }

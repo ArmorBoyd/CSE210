@@ -1,23 +1,38 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 public class GoalsTracker
 {
     private List<Goal> _goals = new List<Goal>();
-    private int _accumulatedPoints = 0;
+    private double _accumulatedPoints = 0; // Using double for decimal points in EXP
+    private int _userLevel = 1;
+    private const double EXPRequiredToLevelUp = 15; // EXP required to level up
 
-    public int GetAccumulatedPoints() => _accumulatedPoints;
+    public double GetAccumulatedPoints() => _accumulatedPoints;
 
-    public void SaveGoals()
+    public int GetUserLevel() => _userLevel;
+
+    public void SaveGoals(string fileName)
     {
-        Console.WriteLine("Saving goals to a file...");
-        // Code for saving goals to a file
+        using (StreamWriter outputFile = new StreamWriter(fileName))
+        {
+            outputFile.WriteLine(_accumulatedPoints); // Save accumulated points
+
+            foreach (Goal goal in _goals)
+            {
+                outputFile.WriteLine(goal.SaveGoal()); // Save each goal's progress
+            }
+        }
+
+        Console.WriteLine($"Goals saved to '{fileName}' successfully.");
     }
 
-    public void LoadGoals()
+    public void LoadGoals(string fileName)
     {
-        Console.WriteLine("Loading goals from a file...");
-        // Code for loading goals from a file
+        // Load goals from a file (implement this logic)
+        Console.WriteLine($"Loading goals from '{fileName}'...");
+        // Your code for loading goals from a file should go here
     }
 
     public void ListGoals()
@@ -40,10 +55,22 @@ public class GoalsTracker
         {
             _goals[goalIndex].RecordEvent();
             _accumulatedPoints += _goals[goalIndex].CalculateAGP();
+            LevelUp(); // Check for level up after recording an event
         }
         else
         {
             Console.WriteLine("Invalid goal index.");
+        }
+    }
+
+    private void LevelUp()
+    {
+        // Logic for leveling up the user based on accumulated points
+        if (_accumulatedPoints >= EXPRequiredToLevelUp)
+        {
+            _userLevel++;
+            Console.WriteLine($"Congratulations! You've reached Level {_userLevel}!");
+            _accumulatedPoints -= EXPRequiredToLevelUp; // Deduct the EXP required for leveling up
         }
     }
 }
