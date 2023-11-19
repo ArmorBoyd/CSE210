@@ -4,33 +4,35 @@ public abstract class Goal
 {
     protected string _name;
     protected string _description;
-    protected int _pointsAmount;
+    protected int _goalPoints;
+    protected bool _status;
 
-    public Goal(string name, string description, int pointsAmount)
+    public virtual void CreateGoal()
     {
-        _name = name;
-        _description = description;
-        _pointsAmount = pointsAmount;
+        Console.Write("What is the name of your goal? ");
+        _name = Console.ReadLine();
+
+        Console.Write("What is a short description of it? ");
+        _description = Console.ReadLine();
+
+        Console.Write("What is the amount of points associated with this goal? ");
+        string stringGoalPoints = Console.ReadLine();
+        _goalPoints = Convert.ToInt32(stringGoalPoints);
+
+        _status = false;
     }
 
-    public abstract void RecordEvent();
-
-    public abstract bool IsComplete();
-
-    public void DisplayMenu()
+    public virtual void RecordEvent()
     {
-        Console.WriteLine($"1. Record Event for {_name}");
-        Console.WriteLine($"2. Check {_name} Status");
-        Console.WriteLine("3. Quit");
+        Console.WriteLine($"Congratulations! You have completed the goal: {_name}");
+        _status = true;
     }
 
-    public void LoadFile()
-    {
-        Console.WriteLine("Loading goals from file...");
-    }
+    public virtual bool IsComplete() => _status;
 
-    public void SaveFile()
-    {
-        Console.WriteLine("Saving goals to file...");
-    }
+    public abstract void ListGoal();
+
+    public virtual int CalculateAGP() => IsComplete() ? _goalPoints : 0;
+
+    public virtual string SaveGoal() => $"{GetType().Name}:{_name},{_description},{_goalPoints},{_status}";
 }

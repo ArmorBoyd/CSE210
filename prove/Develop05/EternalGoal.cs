@@ -1,15 +1,18 @@
+using System;
+
 public class EternalGoal : Goal
 {
-    public EternalGoal(string name, string description, int pointsAmount)
-        : base(name, description, pointsAmount) { }
-
-    public override void RecordEvent()
+    public override void CreateGoal()
     {
-        Console.WriteLine($"Event recorded for {_name}. Gained {_pointsAmount} points.");
+        base.CreateGoal(); // Reuse base class's implementation for creating a goal
     }
 
-    public override bool IsComplete()
+    public override void ListGoal()
     {
-        return false;
+        string status = IsComplete() ? "[]" : "[ ]";
+        Console.WriteLine($"{status} {_name} ({_description}) - Eternal Goal");
     }
+
+    public override string SaveGoal() => $"{base.SaveGoal()}"; // Save the eternal goal details
+    
 }

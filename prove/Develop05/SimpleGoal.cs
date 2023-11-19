@@ -1,15 +1,17 @@
+using System;
+
 public class SimpleGoal : Goal
 {
-    public SimpleGoal(string name, string description, int pointsAmount) 
-        : base(name, description, pointsAmount) { }
-
-    public override void RecordEvent()
+    public override void CreateGoal()
     {
-        Console.WriteLine($"Event recorded for {_name}. Gained {_pointsAmount} points.");
+        base.CreateGoal(); // Reuse base class's implementation for creating a goal
     }
 
-    public override bool IsComplete()
+    public override void ListGoal()
     {
-        return true;
+        string status = IsComplete() ? "[X]" : "[ ]";
+        Console.WriteLine($"{status} {_name} ({_description}) - Simple Goal");
     }
+
+    public override string SaveGoal() => $"{base.SaveGoal()}"; // Save the simple goal details
 }
