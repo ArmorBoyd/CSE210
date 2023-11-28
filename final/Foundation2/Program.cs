@@ -5,12 +5,12 @@ class Program
     static void Main(string[] args)
     {
         // Create addresses
-        Address address1 = new Address("123 Main St", "Anytown", "CA", "USA");
-        Address address2 = new Address("456 Elm St", "Othertown", "NY", "Canada");
+        Address address1 = new Address("Blk 6 lot 9 Nut Street", "Nowhere.", "CA", "Philippines");
+        Address address2 = new Address("Blk 9 lot 6 Lana Street", "MucTown", "NY", "USA");
 
         // Create customers
-        Customer customer1 = new Customer("John Doe", address1);
-        Customer customer2 = new Customer("Jane Smith", address2);
+        Customer customer1 = new Customer("Sheena Ignacio", address1);
+        Customer customer2 = new Customer("Kariza Balacanao", address2);
 
         // Create products
         Product product1 = new Product("Product 1", "P001", 10.5m, 2);

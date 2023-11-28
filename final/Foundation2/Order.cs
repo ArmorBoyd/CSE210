@@ -46,7 +46,7 @@ class Order
     {
         string shippingLabel = "Shipping Label:\n";
         shippingLabel += $"Customer: {customer.GetName()}\n";
-        shippingLabel += $"Address:\n{customer.GetAddress().GetFullAddress()}";
+        shippingLabel += $"Address:{customer.GetAddress().GetFullAddress()}";
         return shippingLabel;
     }
 }
