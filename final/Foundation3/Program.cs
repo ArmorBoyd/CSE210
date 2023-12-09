@@ -11,7 +11,7 @@ namespace EventManagement
             Address address3 = new Address("Burgos Street", "San Fermin City", "Purok State ", "6699");
 
             Lecture lectureEvent = new Lecture("Learn Coding", "Introduction to Programming", new DateTime(2023, 12, 15), new TimeSpan(10, 0, 0), address1, "Boydie Pobs", 15);
-            Reception receptionEvent = new Reception("Wedding Night", "For time and Eternity", new DateTime(2023, 11, 20), new TimeSpan(18, 30, 0), address2, "Can you please RSVP a response? I would greatly appreciate if you could let me know if you will be attending");
+            Reception receptionEvent = new Reception("Wedding Night", "For time and Eternity", new DateTime(2023, 11, 20), new TimeSpan(18, 30, 0), address2, "RSVP001@email.com");
             OutdoorGathering outdoorEvent = new OutdoorGathering("River Side Picnic", "Enjoy the Outdoors", new DateTime(2023, 7, 8), new TimeSpan(12, 0, 0), address3, "Sunny");
 
             Console.WriteLine("Lecture Event Details");
